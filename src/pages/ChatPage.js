@@ -9,21 +9,33 @@ const ChatPage = () => {
 
     const [messages, setMessages] = useState([]);
     const [message, setMessage] = useState([]);
+    const [sender, setSender] = useState(null);
+
     const {conversationId} = useParams();
+    const navigate = useNavigate();
 
     const [sendMessage] = useMutation(SEND_MESSAGE);
     const { data: newMessageData } = useSubscription(MESSAGE_ADDED_SUBSCRIPTION, {
         variables: { conversationId },
         skip: !conversationId,
     });
-    const sender = "User";
+
+    useEffect(() => {
+        const userName = sessionStorage.getItem("userName");
+        if (!userName) {
+            console.log("No sender name found in session storage");
+            alert("Please enter your name first");
+            navigate("/");
+        }
+        setSender(userName);
+    }, []);
 
     useEffect(() => {
         if (newMessageData) {
+            console.log("New message data: ", newMessageData);
             setMessages((prevMessages) => [...prevMessages, newMessageData.messageAdded]);
         }
     }, [newMessageData]);
-
 
     const handleSendMessage = async (e) => {
         e.preventDefault();
@@ -44,7 +56,7 @@ const ChatPage = () => {
             <div>
                 {messages.map((message) => (
                     <div key={message.id}>
-                        <p>{message.sender}: {message.content}</p>
+                        <p>{message.sender}: {message.content} {message.createdAt}</p>
                     </div>
                 ))}
             </div>
@@ -61,7 +73,6 @@ const ChatPage = () => {
                 </form>
             </div>
         </div>
-    )
-
+    );
 };
 export default ChatPage;
