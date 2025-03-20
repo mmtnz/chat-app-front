@@ -1,4 +1,117 @@
+:root {
+    --color-header: #1a2938;
+    --color-header-text: #ecf0f1;
+    --header-height: 4rem;
+}
+
+/* Apply box-sizing to all elements for better layout control */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+ html, body {
+    /* height: 100%; */
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    /* overflow: hidden; */
+}
+
+body {
+    text-align: center;
+    margin: 0px;
+    padding: 0px;
+    /* FUENTES */
+    font-family: 'Segoe UI', Roboto, Helvetica Neue;
+    -webkit-font-smoothing: antialiased;
+    -moz-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: antialiased;
+}
+
+.page-container {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh);
+}
+
+.body-content {
+    flex: 1
+}
+
+.center{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .header{
-    height: 4rem;
-    background-color: #282c34;
+    background: var(--color-header);
+    color: var(--color-header-text);
+    height: var(--header-height);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.header-title-container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.header-icon-container {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 0.8rem;
+    padding-right: 0.8rem;
+    color: white
+}
+
+h1 {
+    font-size: 35px;
+}
+
+.chat-container{
+    display: flex;
+    flex-direction: column;
+    /* height: 100%; */
+    width: 40%;
+    max-height: 60vh;
+    overflow-y: auto;
+    padding: 1rem;
+    gap: 0.5rem;
+}
+
+.chat-message-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.chat-message-container.sent{
+    justify-content: flex-start;
+}
+
+.chat-message{
+    background-color: aquamarine;
+    border-radius: 1rem;
+    width: fit-content;
+    padding: 0.5rem 0.8rem;
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    /* width: fit-content; */
+}
+
+.chat-message.sent{
+    background-color: rgb(30, 190, 137);
+}
+
+.sender{
+    font-weight: bold;
 }

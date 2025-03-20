@@ -3,6 +3,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useSubscription, useMutation } from "@apollo/client";
 import { MESSAGE_ADDED_SUBSCRIPTION } from "../graphql/subscriptions";
 import { SEND_MESSAGE } from "../graphql/mutations";
+import MessageSent from "../components/MessageSent";
+import ChatMessage from "../components/ChatMessage";
 
 
 const ChatPage = () => {
@@ -50,14 +52,21 @@ const ChatPage = () => {
         }
     };
 
+    const formatTime = (ts) => {
+        const date = new Date(Number(ts));
+        return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit"});
+    };
+
+    const formatUserName = (userName) => { 
+        return userName.split("-")[0];
+    }
+
     return (
-        <div>
+        <div className="center">
             <h2>Chat</h2>
-            <div>
-                {messages.map((message) => (
-                    <div key={message.id}>
-                        <p>{message.sender}: {message.content} {message.createdAt}</p>
-                    </div>
+            <div className="chat-container">
+                {messages.map((message, index) => (
+                    <ChatMessage key={index} message={message} isSender={message.sender === sender}/>
                 ))}
             </div>
 

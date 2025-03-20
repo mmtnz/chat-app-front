@@ -14,6 +14,7 @@ const GET_MESSAGES = gql`
             id
             sender
             content
+            created_at
         }
     }
 `;

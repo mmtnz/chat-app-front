@@ -1,6 +1,7 @@
 import { useState } from "react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import uuid4 from "uuid4";
 
 
 const WelcomePage = () => {
@@ -22,9 +23,10 @@ const WelcomePage = () => {
     const handleAddUserName = (e) => {
         e.preventDefault();
         // Add the user name
-        console.log("Adding user name: ", tempUserName);
-        setUserName(tempUserName);
-        sessionStorage.setItem("userName", tempUserName);
+        const userNameAndUUID = `${tempUserName}-${uuid4()}`;
+        console.log("Adding user name: ", userNameAndUUID);
+        setUserName(userNameAndUUID);
+        sessionStorage.setItem("userName", userNameAndUUID);
     }
 
     if (!userName){
@@ -46,6 +48,7 @@ const WelcomePage = () => {
         <div>
             <h2>Start a Conversation</h2>
                 <button onClick={goToNewConversation}>Create New Conversation</button>
+                
                 <form onSubmit={goToConversation}>
                     <input
                         type="text"
@@ -54,7 +57,7 @@ const WelcomePage = () => {
                         onChange={(e) => setConversationId(e.target.value)}
                         required
                     />
-                    <button onClick={goToNewConversation}>Join Existing Conversation</button>
+                    <button type="submit">Join Existing Conversation</button>
                 </form>
                 
         </div>
