@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ApolloProvider, useQuery, useMutation, useSubscription, gql } from "@apollo/client";
 import { client } from "./services/graphQLClient";
+import Router from "./Router";
 
 const GET_CONVERSATIONS = gql`
   query GetConversations {
@@ -71,10 +72,19 @@ function ChatApp() {
     skip: !conversationId,
   });
 
-  const messages = messagesData?.messages || [];
-  if (newMessageData) {
-    messages.push(newMessageData.messageAdded);
-  }
+  const [messages, setMessages] = useState([]);
+
+  useEffect(() => {
+    if (messagesData) {
+      setMessages(messagesData.conversationMessages);
+    }
+  }, [messagesData]);
+  
+  useEffect(() => {
+    if (newMessageData) {
+      setMessages((prevMessages) => [...prevMessages, newMessageData.messageAdded]);
+    }
+  }, [newMessageData]);
 
   const handleCreateConversation = async () => {
     const { data } = await createConversation({ variables: { name: conversationName } });
@@ -161,7 +171,7 @@ function ChatApp() {
 export default function App() {
   return (
     <ApolloProvider client={client}>
-      <ChatApp />
+      <Router />
     </ApolloProvider>
   );
 }
