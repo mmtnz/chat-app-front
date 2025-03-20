@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { ApolloProvider, useQuery, useMutation, useSubscription, gql } from "@apollo/client";
 import { client } from "./services/graphQLClient";
 import Router from "./Router";
+import './assets/css/app.css'
 
 const GET_CONVERSATIONS = gql`
   query GetConversations {

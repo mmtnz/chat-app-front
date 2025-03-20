@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import WelcomePage from "./pages/WelcomePage";
 import NewChatPage from "./pages/NewChatPage";
 import ChatPage from "./pages/ChatPage";
+import Header from "./components/Header";
 const Router = () => {
 
 
@@ -10,7 +11,7 @@ const Router = () => {
         
         <BrowserRouter>
             <div className="page-container">
-                {/* <Header/> */}
+                <Header/>
                 <div className='body-content'>
                     <Routes>
                         <Route exact path="/" element={<WelcomePage/>}/>
