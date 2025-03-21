@@ -6,10 +6,6 @@ const ChatContainer = ({ messages, sender }) => {
 
     useEffect(() => {
         if (bottomRef.current) {
-            // containerRef.current.scrollTo({
-            //     bottom: containerRef.current.scrollHeight,
-            //     behavior: 'smooth',
-            // });
             bottomRef.current.scrollIntoView({ behavior: 'smooth' });
         }
     }, [messages]); // Runs whenever 'messages' updates
@@ -17,7 +13,7 @@ const ChatContainer = ({ messages, sender }) => {
     return (
         <div className="chat-container">
             {messages.map((message, index) => (
-                <ChatMessage key={index} message={message} isSender={message.sender === sender}/>
+                <ChatMessage key={index} message={message} isSender={message.sender === sender} isSystem={message.sender === "system"}/>
             ))}
             <div ref={bottomRef} />
         </div>

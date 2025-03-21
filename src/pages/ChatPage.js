@@ -32,15 +32,18 @@ const ChatPage = () => {
 
     useEffect(() => {
         if (!loading && data){
-
-            console.log(data)
             if (!data?.conversation) {
                 console.log("No conversation found with id: ", conversationId);
                 alert("No conversation found with the given id");
                 navigate("/");
             }
-            console.log(data)
             setChatName(data.conversation.name);
+            setMessages((prevMessages) => [
+                ...prevMessages,
+                // {sender: "system", content: "You joined the chat"},
+                {sender: "system", content: "New messages will appear here"},
+            ]);
+            sendNewUserMessage();
         }
 
     }, [data, loading]);
@@ -75,47 +78,52 @@ const ChatPage = () => {
         }
     };
 
-    const formatTime = (ts) => {
-        const date = new Date(Number(ts));
-        return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit"});
+    // To inform other users you joined the chat
+    const sendNewUserMessage = async () => {
+        await sendMessage({ variables: {
+            conversationId,
+            sender: "system",
+            content: `${sender.split('-')[0]} joined the chat`
+        } });
     };
 
-    const formatUserName = (userName) => { 
-        return userName.split("-")[0];
-    }
 
     return (
         <div className="center">
-            <h2>Chat: {chatName}</h2>
-            <ChatContainer messages={messages} sender={sender}/>
-            {/* <div className="chat-container">
-                {messages.map((message, index) => (
-                    <ChatMessage key={index} message={message} isSender={message.sender === sender}/>
-                ))}
-            </div> */}
+            {/* <h2>Chat: {chatName}</h2> */}
+            <div className="chat">
                 
-            <div className="chat-input-container">
-                <form onSubmit={handleSendMessage} className="chat-input-form">
-                    <input
-                        className="chat-input"
-                        type="text"
-                        // placeholder="Type your message..."
-                        value={message}
-                        onChange={(e) => setMessage(e.target.value)}
-                    />
-                    <button type="submit" className="send-button">
-                        <span
-                            className="material-symbols-outlined"
-                            translate="no" aria-hidden="true" // prevent problems with translators
-                            onClick={handleSendMessage}
-                        >
-                            send
-                        </span>
-                    </button>
-                </form>
+                <div className="chat-header">
+                    <h3>{chatName}</h3>
+                </div>
+                <div className="chat-content">
                 
-            </div>
+                    <ChatContainer messages={messages} sender={sender}/>
+                    
+                    <div className="chat-input-container">
+                        <form onSubmit={handleSendMessage} className="chat-input-form">
+                            <input
+                                className="chat-input"
+                                type="text"
+                                placeholder="Type your message..."
+                                value={message}
+                                onChange={(e) => setMessage(e.target.value)}
+                            />
+                            <button type="submit" className="send-button">
+                                <span
+                                    className="material-symbols-outlined"
+                                    translate="no" aria-hidden="true" // prevent problems with translators
+                                    onClick={handleSendMessage}
+                                >
+                                    send
+                                </span>
+                            </button>
+                        </form>
+                        
+                    </div>
+                </div>
 
+            </div>
         </div>
     );
 };
