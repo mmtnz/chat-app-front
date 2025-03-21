@@ -2,11 +2,15 @@ import { useEffect, useRef } from "react";
 import ChatMessage from "./ChatMessage";
 
 const ChatContainer = ({ messages, sender }) => {
-    const containerRef = useRef(null);
+    const bottomRef = useRef(null);
 
     useEffect(() => {
-        if (containerRef.current) {
-            containerRef.current.scrollTop = containerRef.current.scrollHeight;
+        if (bottomRef.current) {
+            // containerRef.current.scrollTo({
+            //     bottom: containerRef.current.scrollHeight,
+            //     behavior: 'smooth',
+            // });
+            bottomRef.current.scrollIntoView({ behavior: 'smooth' });
         }
     }, [messages]); // Runs whenever 'messages' updates
 
@@ -15,6 +19,7 @@ const ChatContainer = ({ messages, sender }) => {
             {messages.map((message, index) => (
                 <ChatMessage key={index} message={message} isSender={message.sender === sender}/>
             ))}
+            <div ref={bottomRef} />
         </div>
     );
 };
