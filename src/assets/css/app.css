@@ -249,6 +249,7 @@ input[type="text"].chat-input{
     /* color: white; */
     /* padding: .2rem .5rem 0rem .1rem; */
     font-size: 0.1rem;
+    cursor: pointer;
 }
 
 .send-button .material-symbols-outlined{
