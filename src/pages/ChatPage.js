@@ -97,8 +97,9 @@ const ChatPage = () => {
             <div className="chat-input-container">
                 <form onSubmit={handleSendMessage} className="chat-input-form">
                     <input
+                        className="chat-input"
                         type="text"
-                        placeholder="Type your message..."
+                        // placeholder="Type your message..."
                         value={message}
                         onChange={(e) => setMessage(e.target.value)}
                     />
