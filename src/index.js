@@ -8,9 +8,12 @@ import { client } from "./services/graphQLClient";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <ApolloProvider client={client}>
+  // <ApolloProvider client={client}>
+  <React.StrictMode>
     <App />
-  </ApolloProvider>
+  </React.StrictMode>
+    
+  // </ApolloProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

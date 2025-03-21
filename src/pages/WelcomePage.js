@@ -27,6 +27,7 @@ const WelcomePage = () => {
         console.log("Adding user name: ", userNameAndUUID);
         setUserName(userNameAndUUID);
         sessionStorage.setItem("userName", userNameAndUUID);
+        
     }
 
     if (!userName){

@@ -1,22 +1,66 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from 'react-router-dom';
-import { useSubscription, useMutation, useQuery } from "@apollo/client";
+import { ApolloProvider, useSubscription, useMutation, useQuery } from "@apollo/client";
 import { MESSAGE_ADDED_SUBSCRIPTION } from "../graphql/subscriptions";
 import { SEND_MESSAGE } from "../graphql/mutations";
 import { CHECK_CONVERSATION } from "../graphql/queries";
-import ChatMessage from "../components/ChatMessage";
 import ChatContainer from "../components/ChatContainer";
+import { createApolloClient } from "../services/graphQLClient";
 
 
 const ChatPage = () => {
 
-    const [messages, setMessages] = useState([]);
-    const [message, setMessage] = useState("");
-    const [sender, setSender] = useState(null);
-    const [chatName, setChatName] = useState(null);
-
     const {conversationId} = useParams();
     const navigate = useNavigate();
+    const [sender, setSender] = useState(null);
+    const [client, setClient] = useState(null);
+
+    useEffect(() => {
+        const userName = sessionStorage.getItem("userName");
+        if (!userName) {
+            console.log("No sender name found in session storage");
+            alert("Please enter your name first");
+            navigate("/");
+            return;
+        }
+        setSender(userName);
+        setClient(createApolloClient(userName, conversationId));
+    }, [conversationId, navigate]);
+
+
+    if (!client || !sender) return <div>Loading chat...</div>;
+    
+
+    
+
+    // // To inform other users you joined the chat
+    // const sendNewUserMessage = async () => {
+    //     await sendMessage({ variables: {
+    //         conversationId,
+    //         sender: "system",
+    //         system: true,
+    //         content: `${sender.split('-')[0]} joined the chat`
+    //     } });
+    // };
+
+
+    return (
+        <ApolloProvider client={client}>
+            <ChatContent sender={sender} conversationId={conversationId} />
+        </ApolloProvider>
+    );
+};
+export default ChatPage;
+
+// Apollo
+const ChatContent = ({ sender, conversationId }) => {
+    const navigate = useNavigate();
+    const [messages, setMessages] = useState([]);
+    const [message, setMessage] = useState("");
+    const [chatName, setChatName] = useState(null);
+
+    
+
 
     const [sendMessage] = useMutation(SEND_MESSAGE);
 
@@ -41,22 +85,12 @@ const ChatPage = () => {
             setMessages((prevMessages) => [
                 ...prevMessages,
                 // {sender: "system", content: "You joined the chat"},
-                {sender: "system", content: "New messages will appear here"},
+                {sender: "system", system: true, content: "New messages will appear here"},
             ]);
-            sendNewUserMessage();
+            // sendNewUserMessage();
         }
 
     }, [data, loading]);
-
-    useEffect(() => {
-        const userName = sessionStorage.getItem("userName");
-        if (!userName) {
-            console.log("No sender name found in session storage");
-            alert("Please enter your name first");
-            navigate("/");
-        }
-        setSender(userName);
-    }, []);
 
     useEffect(() => {
         if (newMessageData) {
@@ -78,17 +112,8 @@ const ChatPage = () => {
         }
     };
 
-    // To inform other users you joined the chat
-    const sendNewUserMessage = async () => {
-        await sendMessage({ variables: {
-            conversationId,
-            sender: "system",
-            content: `${sender.split('-')[0]} joined the chat`
-        } });
-    };
 
-
-    return (
+    return(
         <div className="center">
             {/* <h2>Chat: {chatName}</h2> */}
             <div className="chat">
@@ -125,7 +150,5 @@ const ChatPage = () => {
 
             </div>
         </div>
-    );
+    )
 };
-export default ChatPage;
-

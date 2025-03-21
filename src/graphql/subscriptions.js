@@ -7,6 +7,7 @@ export const MESSAGE_ADDED_SUBSCRIPTION = gql`
             sender
             content
             created_at
+            system
         }
     }
 `;

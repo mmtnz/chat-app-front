@@ -8,8 +8,7 @@ const ChatMessage = ({message, isSender, isSystem}) => {
     };
 
     const sender = message.sender.split("-")[0];
-    console.log(isSystem)
-
+    
     if (isSystem) {
         return(
             <div className={`chat-message-container info`}>
@@ -24,7 +23,6 @@ const ChatMessage = ({message, isSender, isSystem}) => {
 
     return (
         <div className={`chat-message-container ${isSender ? "sent" : ""}`}>
-            
             <div className={`chat-message ${isSender ? "sent" : ""}`}>
                 {isSender ? (
                     <div className="msg-content">

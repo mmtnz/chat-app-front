@@ -9,44 +9,47 @@ import { getMainDefinition } from "@apollo/client/utilities";
 // const useAppSync = process.env.REACT_APP_USE_APPSYNC === "true";
 
 
+export const createApolloClient = (userName, conversationId) => {
+        const httpLink = new HttpLink({
+        uri: process.env.REACT_APP_GRAPHQL_ENDPOINT, // Apollo Server URL
+    });
 
+    // const wsLink = new GraphQLWsLink({
+    //     uri: process.env.REACT_APP_GRAPHQL_WS, // Apollo WebSocket URL
+    //     options: { reconnect: true },
+    // });
+    // WebSocket Link for Subscriptions
+    const wsLink = new GraphQLWsLink(
+        createClient({
+            url: process.env.REACT_APP_GRAPHQL_WS || "ws://localhost:4000/graphql",
+            connectionParams: {
+                userName,
+                conversationId,
+                reconnect: true,
+            },
+        })      
+    );
 
-const httpLink = new HttpLink({
-    uri: process.env.REACT_APP_GRAPHQL_ENDPOINT, // Apollo Server URL
-});
-
-// const wsLink = new GraphQLWsLink({
-//     uri: process.env.REACT_APP_GRAPHQL_WS, // Apollo WebSocket URL
-//     options: { reconnect: true },
-// });
-// WebSocket Link for Subscriptions
-const wsLink = new GraphQLWsLink(
-    createClient({
-        url: process.env.REACT_APP_GRAPHQL_WS || "ws://localhost:4000/graphql",
-        connectionParams: {
-        reconnect: true,
+    // Split between HTTP and WebSocket links
+    const splitLink = split(
+        ({ query }) => {
+            const definition = getMainDefinition(query);
+            return (
+                definition.kind === "OperationDefinition" &&
+                definition.operation === "subscription"
+            );
         },
-    })
-);
+        wsLink,
+        httpLink
+    );
 
-// Split between HTTP and WebSocket links
-const splitLink = split(
-    ({ query }) => {
-        const definition = getMainDefinition(query);
-        return (
-            definition.kind === "OperationDefinition" &&
-            definition.operation === "subscription"
-        );
-    },
-    wsLink,
-    httpLink
-);
-
-// Apollo Client Instance
-export const client = new ApolloClient({
-    link: splitLink,
-    cache: new InMemoryCache(),
-});
+    // Apollo Client Instance
+    const client = new ApolloClient({
+        link: splitLink,
+        cache: new InMemoryCache(),
+    });     
+    return client;          
+}
 
 
 // AWS AppSync Configuration

@@ -8,12 +8,13 @@ const ChatContainer = ({ messages, sender }) => {
         if (bottomRef.current) {
             bottomRef.current.scrollIntoView({ behavior: 'smooth' });
         }
+        console.log(messages)
     }, [messages]); // Runs whenever 'messages' updates
 
     return (
         <div className="chat-container">
             {messages.map((message, index) => (
-                <ChatMessage key={index} message={message} isSender={message.sender === sender} isSystem={message.sender === "system"}/>
+                <ChatMessage key={index} message={message} isSender={message.sender === sender} isSystem={message.system}/>
             ))}
             <div ref={bottomRef} />
         </div>
