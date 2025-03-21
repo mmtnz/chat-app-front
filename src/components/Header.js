@@ -3,13 +3,13 @@ import { useNavigate } from "react-router-dom";
 
 const Header = () => {
 
-    const userName = sessionStorage.getItem("userName");
+    const userName = sessionStorage.getItem("userName") || "";
     const navigate = useNavigate();
 
     const goHome = () => {
         navigate("/");
     }
-    
+
     return(
         <div className="header">
             <div className='header-icon-container'>

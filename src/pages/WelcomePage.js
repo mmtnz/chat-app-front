@@ -30,9 +30,9 @@ const WelcomePage = () => {
     }
 
     if (!userName){
-        return <div>
+        return <div className="center">
             <h2>Enter your name</h2>
-            <form onSubmit={handleAddUserName}>
+            <form onSubmit={handleAddUserName} className="custom-form">
                 <input
                     type="text"
                     placeholder="Enter your name"
@@ -45,11 +45,11 @@ const WelcomePage = () => {
         </div>
     }
     return(
-        <div>
+        <div className="center">
             <h2>Start a Conversation</h2>
                 <button onClick={goToNewConversation}>Create New Conversation</button>
-                
-                <form onSubmit={goToConversation}>
+                <div>OR</div>
+                <form onSubmit={goToConversation} className="custom-form">
                     <input
                         type="text"
                         placeholder="Enter conversation id"

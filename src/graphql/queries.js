@@ -1,5 +1,17 @@
 import { gql } from "@apollo/client";
-const GET_CONVERSATIONS = gql`
+
+
+export const CHECK_CONVERSATION = gql`
+    query Conversation($id: ID!) {
+        conversation(id: $id) {
+            id
+            name
+        }
+    }
+`;
+
+
+export const GET_CONVERSATIONS = gql`
     query GetConversations {
         conversations {
             id
@@ -8,7 +20,7 @@ const GET_CONVERSATIONS = gql`
     }
 `;
 
-const GET_MESSAGES = gql`
+export const GET_MESSAGES = gql`
     query GetMessages($conversationId: ID!) {
         conversationMessages(conversationId: $conversationId) {
             id
