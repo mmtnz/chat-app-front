@@ -31,40 +31,43 @@ const WelcomePage = () => {
     }
 
     if (!userName){
-        return <div className="center">
-            <h2>Enter your name</h2>
-            <form onSubmit={handleAddUserName} className="custom-form">
-                <input
-                    type="text"
-                    placeholder="Enter your name"
-                    value={tempUserName}
-                    onChange={(e)=>setTempUserName(e.target.value)}
-                    required
-                />
-                <button className="custom-button" type="submit">Submit</button>
-            </form>
-        </div>
+        return (
+            <div className="center">
+                <h2>Enter your name</h2>
+                    <div className="center-column">
+                        <form onSubmit={handleAddUserName} className="custom-form">
+                            <input
+                                type="text"
+                                placeholder="Enter your name"
+                                value={tempUserName}
+                                onChange={(e)=>setTempUserName(e.target.value)}
+                                required
+                            />
+                            <button className="custom-button" type="submit">Submit</button>
+                        </form>
+                    </div>
+            </div>
+        )
     }
     return(
         <div className="center">
-                <h1>Start a Conversation</h1>
-                <div className="center-column">
-                    <button className="custom-button" onClick={goToNewConversation}>Create New Conversation</button>
-                    <div class="divider">
-                        <span>OR</span>
-                    </div>
-                    <form onSubmit={goToConversation} className="custom-form">
-                        <input
-                            type="text"
-                            placeholder="Enter conversation id"
-                            value={conversationId}
-                            onChange={(e) => setConversationId(e.target.value)}
-                            required
-                        />
-                        <button type="submit" className="custom-button">Join Existing Conversation</button>
-                    </form>
+            <h1>Start a Conversation</h1>
+            <div className="center-column">
+                <button className="custom-button" onClick={goToNewConversation}>Create New Conversation</button>
+                <div class="divider">
+                    <span>OR</span>
                 </div>
-                
+                <form onSubmit={goToConversation} className="custom-form">
+                    <input
+                        type="text"
+                        placeholder="Enter conversation id"
+                        value={conversationId}
+                        onChange={(e) => setConversationId(e.target.value)}
+                        required
+                    />
+                    <button type="submit" className="custom-button">Join Existing Conversation</button>
+                </form>
+            </div>
         </div>
     )
 };

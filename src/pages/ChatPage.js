@@ -33,17 +33,6 @@ const ChatPage = () => {
 
     
 
-    // // To inform other users you joined the chat
-    // const sendNewUserMessage = async () => {
-    //     await sendMessage({ variables: {
-    //         conversationId,
-    //         sender: "system",
-    //         system: true,
-    //         content: `${sender.split('-')[0]} joined the chat`
-    //     } });
-    // };
-
-
     return (
         <ApolloProvider client={client}>
             <ChatContent sender={sender} conversationId={conversationId} />

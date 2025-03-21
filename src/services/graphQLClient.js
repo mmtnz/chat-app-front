@@ -9,7 +9,7 @@ import { getMainDefinition } from "@apollo/client/utilities";
 // const useAppSync = process.env.REACT_APP_USE_APPSYNC === "true";
 
 
-export const createApolloClient = (userName, conversationId) => {
+export const createApolloClient = (userName, conversationId=null) => {
         const httpLink = new HttpLink({
         uri: process.env.REACT_APP_GRAPHQL_ENDPOINT, // Apollo Server URL
     });
