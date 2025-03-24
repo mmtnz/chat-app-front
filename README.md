@@ -9,6 +9,9 @@ This is the frontend for a real-time chat application built with **React** and *
 - Create and start new conversations
 - Built with modern React (Hooks, Functional Components)
 
+  ![image](https://github.com/user-attachments/assets/23503eb3-5e96-46b3-b1c8-9eb6d78299aa)
+
+
 ## 🛠️ Technologies Used
 - React
 - Apollo Client
