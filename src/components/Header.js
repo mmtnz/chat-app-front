@@ -25,9 +25,9 @@ const Header = () => {
             <div className='header-title-container'>
                 <h2 translate="no">{'Chat App'}</h2>
             </div>
-            <div className="user-name">
+            {/* <div className="user-name">
                 {userName.split("-")[0]}
-            </div>
+            </div> */}
         </div>
 
 

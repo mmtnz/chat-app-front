@@ -47,9 +47,7 @@ const ChatContent = ({ sender, conversationId }) => {
     const [messages, setMessages] = useState([]);
     const [message, setMessage] = useState("");
     const [chatName, setChatName] = useState(null);
-
-    
-
+    const [copied, setCopied] = useState(false);
 
     const [sendMessage] = useMutation(SEND_MESSAGE);
 
@@ -79,11 +77,9 @@ const ChatContent = ({ sender, conversationId }) => {
             setMessages((prevMessages) => [
                 
                 ...prevMessages,
-                // {sender: "system", content: "You joined the chat"},
                 ...oldMessagesData.conversationMessages,
                 {sender: "system", system: true, content: "New messages will appear here"},
             ]);
-            // sendNewUserMessage();
         }
 
     }, [data, loading, oldMessagesData, loadingMessages]);
@@ -108,19 +104,33 @@ const ChatContent = ({ sender, conversationId }) => {
         }
     };
 
+    const handleCopy = () =>{
+        navigator.clipboard.writeText(conversationId).then(() => {
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2000); // Reset after 2 seconds
+        }).catch(err => {
+            console.error('Failed to copy: ', err);
+        });
+    }
+
     if (loading || loadingMessages) return <div>Loading messages...</div>;
 
 
     return(
         <div className="center">
-            {/* <h2>Chat: {chatName}</h2> */}
+            <div  className="copy-container">
+                <button className="custom-button"  onClick={handleCopy}>
+                    {copied ? `Copied!` : `Copy Chat ID`}
+                </button>
+            </div>
             <div className="chat">
                                 
                 <div className="chat-header">
                     <h3>{chatName}</h3>
                 </div>
+
+
                 <div className="chat-content">
-                
                     <ChatContainer messages={messages} sender={sender}/>
                     
                     <div className="chat-input-container">

@@ -34,7 +34,7 @@ const WelcomePage = () => {
         return (
             <div className="center">
                 <h2>Enter your name</h2>
-                    <div className="center-column">
+                    <div className="center-column mt-3">
                         <form onSubmit={handleAddUserName} className="custom-form">
                             <input
                                 type="text"
@@ -52,7 +52,7 @@ const WelcomePage = () => {
     return(
         <div className="center">
             <h1>Start a Conversation</h1>
-            <div className="center-column">
+            <div className="center-column mt-3">
                 <button className="custom-button" onClick={goToNewConversation}>Create New Conversation</button>
                 <div class="divider">
                     <span>OR</span>

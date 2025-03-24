@@ -37,6 +37,14 @@ body {
     -moz-osx-font-smoothing: antialiased;
 }
 
+.mt-3{
+    margin-top: 3rem;
+}
+
+.mb-1{
+    margin-bottom: 1rem;
+}
+
 .page-container {
     display: flex;
     flex-direction: column;
@@ -284,4 +292,9 @@ input[type="text"].chat-input{
 
 .custom-button:hover{
     opacity: 0.8;
+}
+
+.copy-container{
+    width: 10rem;
+    margin-top: 2rem;
 }
