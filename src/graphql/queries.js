@@ -27,6 +27,7 @@ export const GET_MESSAGES = gql`
             sender
             content
             created_at
+            system
         }
     }
 `;

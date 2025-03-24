@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { ApolloProvider, useSubscription, useMutation, useQuery } from "@apollo/client";
 import { MESSAGE_ADDED_SUBSCRIPTION } from "../graphql/subscriptions";
 import { SEND_MESSAGE } from "../graphql/mutations";
-import { CHECK_CONVERSATION } from "../graphql/queries";
+import { GET_MESSAGES, CHECK_CONVERSATION } from "../graphql/queries";
 import ChatContainer from "../components/ChatContainer";
 import { createApolloClient } from "../services/graphQLClient";
 
@@ -58,13 +58,18 @@ const ChatContent = ({ sender, conversationId }) => {
         skip: !conversationId, // Avoid making unnecessary requests
     });
 
+    const { data: oldMessagesData, loading: loadingMessages } = useQuery(GET_MESSAGES, {
+        variables: { conversationId },
+        skip: !conversationId, // Avoid making unnecessary requests
+    });
+
     const { data: newMessageData } = useSubscription(MESSAGE_ADDED_SUBSCRIPTION, {
         variables: { conversationId },
         skip: !conversationId,
     });
 
     useEffect(() => {
-        if (!loading && data){
+        if (!loading && data && !loadingMessages && oldMessagesData){
             if (!data?.conversation) {
                 console.log("No conversation found with id: ", conversationId);
                 alert("No conversation found with the given id");
@@ -72,14 +77,16 @@ const ChatContent = ({ sender, conversationId }) => {
             }
             setChatName(data.conversation.name);
             setMessages((prevMessages) => [
+                
                 ...prevMessages,
                 // {sender: "system", content: "You joined the chat"},
+                ...oldMessagesData.conversationMessages,
                 {sender: "system", system: true, content: "New messages will appear here"},
             ]);
             // sendNewUserMessage();
         }
 
-    }, [data, loading]);
+    }, [data, loading, oldMessagesData, loadingMessages]);
 
     useEffect(() => {
         if (newMessageData) {
@@ -101,12 +108,14 @@ const ChatContent = ({ sender, conversationId }) => {
         }
     };
 
+    if (loading || loadingMessages) return <div>Loading messages...</div>;
+
 
     return(
         <div className="center">
             {/* <h2>Chat: {chatName}</h2> */}
             <div className="chat">
-                
+                                
                 <div className="chat-header">
                     <h3>{chatName}</h3>
                 </div>
