@@ -24,7 +24,7 @@ This is the frontend for a real-time chat application built with **React** and *
 
 - npm
 
-To use the app **locally** you also need to install the backend [Chat App Backend](https://github.com/mmtnz/chat-app-frontend)
+To use the app **locally** you also need to install the backend [Chat App Backend](https://github.com/mmtnz/chat-app-back)
 
 ### Installation
 
