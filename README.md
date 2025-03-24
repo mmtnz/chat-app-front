@@ -10,7 +10,8 @@ This is the frontend for a real-time chat application built with **React** and *
 - Built with modern React (Hooks, Functional Components)
 
 ## 📸 Screenshots
-  ![image](https://github.com/user-attachments/assets/23503eb3-5e96-46b3-b1c8-9eb6d78299aa)
+![image](https://github.com/user-attachments/assets/12d82936-2242-4e0e-8c38-d1da905f3d15)
+
 
 
 ## 🛠️ Technologies Used
