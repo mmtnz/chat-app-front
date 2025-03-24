@@ -22,8 +22,7 @@ This is the frontend for a real-time chat application built with **React** and *
 
 ### Prerequisites
 
-- Node.js (>= 14.x)
-- npm or yarn
+- npm
 
 To use the app **locally** you also need to install the backend [Chat App Backend](https://github.com/mmtnz/chat-app-frontend)
 
@@ -36,8 +35,6 @@ cd chat-app-frontend
 
 # Install dependencies
 npm install
-# or
-yarn install
 ```
 
 ### Configure Enviroment Variables
@@ -51,7 +48,7 @@ REACT_APP_GRAPHQL_WS=<graphql_endpoint_in_backend>
 ### Run the application
 
 ```bash
-node src/server.js
+npm start
 ```
 
 
