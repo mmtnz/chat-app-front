@@ -6,17 +6,18 @@ import { createAuthLink } from "aws-appsync-auth-link"; // Required for AppSync
 import { createSubscriptionHandshakeLink } from "aws-appsync-subscription-link"; // Required for AppSync
 
 const useAppSync = process.env.REACT_APP_USE_APPSYNC === "true";
-
+console.log(process.env.REACT_APP_USE_APPSYNC)
+console.log(process.env.REACT_APP_USE_APPSYNC === "true")
 
 export const createApolloClient = (userName, conversationId=null) => {
 
     // Connecting to an aws based backend with appsync
     if (useAppSync) {
         const appsyncConfig = {
-            url: process.env.REACT_APP_APPSYNC_ENDPOINT,
+            url: process.env.REACT_APP_APPSYNC_URL,
             region: process.env.REACT_APP_AWS_REGION,
             auth: {
-                type: "API_KEY", // or "AMAZON_COGNITO_USER_POOLS"
+                type: "API_KEY",
                 apiKey: process.env.REACT_APP_APPSYNC_API_KEY,
             },
             disableOffline: true,
