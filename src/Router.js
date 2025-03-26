@@ -9,7 +9,8 @@ const Router = () => {
 
     return(
         
-        <BrowserRouter>
+        // <BrowserRouter basename="/">
+        <BrowserRouter basename="/chat-app-front">
             <div className="page-container">
                 <Header/>
                 <div className='body-content'>

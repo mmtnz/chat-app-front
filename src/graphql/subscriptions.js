@@ -6,8 +6,9 @@ export const MESSAGE_ADDED_SUBSCRIPTION = gql`
             id
             sender
             content
-            created_at
+            createdAt
             system
+            conversationId
         }
     }
 `;

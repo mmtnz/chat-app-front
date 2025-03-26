@@ -298,3 +298,10 @@ input[type="text"].chat-input{
     width: 10rem;
     margin-top: 1rem;
 }
+
+
+@media (max-width: 550px){
+    .chat{
+        width: 85%
+    };
+}

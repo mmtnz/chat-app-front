@@ -28,7 +28,7 @@ const ChatMessage = ({message, isSender, isSystem}) => {
                     <div className="msg-content">
                         {message.content}
                         <div className="msg-time">
-                            {formatTime(message.created_at)}
+                            {formatTime(message.createdAt)}
                         </div>
                     </div>
                 ):(
@@ -39,7 +39,7 @@ const ChatMessage = ({message, isSender, isSystem}) => {
                         <div className="msg-content">
                             {message.content}
                             <div className="msg-time">
-                                {formatTime(message.created_at)}
+                                {formatTime(message.createdAt)}
                             </div>
                         </div>
                     </>

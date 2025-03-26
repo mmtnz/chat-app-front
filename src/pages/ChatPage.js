@@ -73,7 +73,7 @@ const ChatContent = ({ sender, conversationId }) => {
                 alert("No conversation found with the given id");
                 navigate("/");
             }
-            setChatName(data.conversation.name);
+            setChatName(data?.conversation?.name);
             setMessages((prevMessages) => [
                 
                 ...prevMessages,
@@ -86,7 +86,7 @@ const ChatContent = ({ sender, conversationId }) => {
 
     useEffect(() => {
         if (newMessageData) {
-            console.log("New message data: ", newMessageData);
+            // console.log("New message data: ", newMessageData);
             setMessages((prevMessages) => [...prevMessages, newMessageData.messageAdded]);
         }
     }, [newMessageData]);
