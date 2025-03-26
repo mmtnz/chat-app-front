@@ -8,6 +8,8 @@ export const MESSAGE_ADDED_SUBSCRIPTION = gql`
             content
             created_at
             system
+            conversation_id
+            conversationId
         }
     }
 `;

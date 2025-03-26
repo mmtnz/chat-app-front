@@ -15,6 +15,10 @@ export const SEND_MESSAGE = gql`
             id
             sender
             content
+            created_at
+            system
+            conversation_id
+            conversationId
         }
   }
 `;

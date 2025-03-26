@@ -73,7 +73,7 @@ const ChatContent = ({ sender, conversationId }) => {
                 alert("No conversation found with the given id");
                 navigate("/");
             }
-            setChatName(data.conversation.name);
+            setChatName(data?.conversation?.name);
             setMessages((prevMessages) => [
                 
                 ...prevMessages,
