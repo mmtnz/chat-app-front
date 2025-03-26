@@ -15,7 +15,7 @@ export const SEND_MESSAGE = gql`
             id
             sender
             content
-            created_at
+            createdAt
             system
             conversationId
         }

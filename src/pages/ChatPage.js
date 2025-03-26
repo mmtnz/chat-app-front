@@ -86,7 +86,7 @@ const ChatContent = ({ sender, conversationId }) => {
 
     useEffect(() => {
         if (newMessageData) {
-            console.log("New message data: ", newMessageData);
+            // console.log("New message data: ", newMessageData);
             setMessages((prevMessages) => [...prevMessages, newMessageData.messageAdded]);
         }
     }, [newMessageData]);

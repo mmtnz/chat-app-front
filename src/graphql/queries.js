@@ -26,7 +26,7 @@ export const GET_MESSAGES = gql`
             id
             sender
             content
-            created_at
+            createdAt
             system
         }
     }
