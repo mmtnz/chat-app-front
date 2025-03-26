@@ -1,6 +1,6 @@
 # Chat App Frontend
 
-This is the frontend for a real-time chat application built with **React** and **Apollo Client**. It allows users to **join existing conversations** or **create new ones**, interacting with a backend powered by **GraphQL**.
+This is the frontend for a real-time chat application built with **React** and **Apollo Client**. It allows users to **join existing conversations** or **create new ones**, interacting with a backend powered by **GraphQL**. The backend can be AWS based with **AWS AppSync** or local based with **Apollo Server Express**
 
 ## 🚀 Features
 
@@ -24,7 +24,11 @@ This is the frontend for a real-time chat application built with **React** and *
 
 - npm
 
-To use the app **locally** you also need to install the backend [Chat App Backend](https://github.com/mmtnz/chat-app-back)
+To use the app in the **Cloud AWS** you need to download and deploy  [Chat App Backend AWS](https://github.com/mmtnz/chat-app-back-aws).
+
+To use the app **locally** you also need to install the backend [Chat App Backend](https://github.com/mmtnz/chat-app-back).
+
+
 
 ### Installation
 
@@ -43,6 +47,10 @@ Create a .env file in the project directory with the following structure:
 ```bash
 REACT_APP_GRAPHQL_ENDPOINT=<graphql_endpoint_in_backend>
 REACT_APP_GRAPHQL_WS=<graphql_endpoint_in_backend>
+REACT_APP_USE_APPSYNC=true  # true or false depending if backend is aws based or not
+REACT_APP_APPSYNC_URL=<your_appsync_api_url>
+REACT_APP_APPSYNC_API_KEY=<your_appsync_api_key>
+REACT_APP_AWS_REGION=<your_region>
 ```
 
 ### Run the application
