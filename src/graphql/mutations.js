@@ -17,7 +17,6 @@ export const SEND_MESSAGE = gql`
             content
             created_at
             system
-            conversation_id
             conversationId
         }
   }
